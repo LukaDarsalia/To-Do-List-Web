@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Settings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/stylesSettings.css">
+    <script src="https://kit.fontawesome.com/7c0f4b5852.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.ico"/>
+</head>
+<body>
+	<input type="checkbox" id="switch" onchange="clickk();">
+<div class="app">
+  <div class="body">
+    <div class="main-circle"></div>
+    <div class="phone">
+    <!-- Top -->
+      <div class="menu">
+        <div id='currTime' class="time">4:20</div>
+        <div class="icons">
+          <div class="network"></div>
+          <div class="battery"></div>
+        </div>
+      </div>
+    <!-- Middle -->
+      <div class="content">
+        <div class="circle">
+          <div class="crescent"></div>
+        </div>
+        <p class="heading">Choose a style</p>
+        <p>Pop or subtle. Day or night.<br>
+          Customize your interface
+        </p>
+        <label for="switch">
+          <div class="toggle"></div>
+          <div class="names">
+            <p class="light">Light</p>
+            <p class="dark">Dark</p>
+          </div>
+        </label>
+        
+        <div class="mark"></div>
+      </div>
+     <!-- Bottom --> 
+     <!-- <div>
+       <form id="returnForm" action="/Redirect" method="post" accept-charset="utf-8">
+      <div class="skip" >
+        <input type="hidden" id="returnBut" value="" name="checkedCondition"></input>
+          <p type="button" onclick="$('#returnForm').submit();">Return</p>
+        </div>
+     </form>
+     <form id="LogoutForm" action="/logout" method="post" accept-charset="utf-8">
+      <div class="skip" id="Logout">
+          <p type="button" onclick="$('#LogoutForm').submit();">Log Out</p>
+        </div>
+     </form>
+     </div> -->
+      
+      <div class="skip">
+        <form id="returnForm" action="/Redirect" method="post" accept-charset="utf-8">
+          <input type="hidden" id="returnBut" value="" name="checkedCondition"></input>
+          <p type="button" onclick="$('#returnForm').submit();">Return</p>
+        </form>
+        <div class="Logout">
+          <form id="LogoutForm" action="/logout" method="post" accept-charset="utf-8">
+            <p type="button" onclick="$('#LogoutForm').submit();">Log Out</p>
+          </form>
+        </div>
+      </div>
+      <div class="swipe"></div>
+    </div>
+  </div>
+</div>
+<script>
+    $("#switch")[0].checked = <%= darkMode %>;
+  var d = new Date();
+  var h = d.getHours();
+  var m = d.getMinutes();
+  if (m<10){
+    m = "0"+m;
+  }
+  $("#currTime").html(h+':'+m);
+  var chck = $("#switch")[0].checked;
+  function clickk() {
+    chck = $("#switch")[0].checked;
+    $("#returnBut").attr("value", chck);
+  }
+</script>
+</body>
+</html>

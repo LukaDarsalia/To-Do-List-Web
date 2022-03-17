@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html style="display: none;">
+
+<head>
+    <title>To Do List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link id="CLink" rel="stylesheet" type="text/css" href="">
+    <script src="https://kit.fontawesome.com/7c0f4b5852.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.ico"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap">
+    <link href="https://fonts.googleapis.com/css?family=Lato:700">
+</head>
+
+<body>
+    <div class="box" id="heading">
+        <h1><%= listTitle %> </h1>
+
+
+        <div class="outer-menu">
+          <input class="checkbox-toggle" type="checkbox" />
+          
+          <div class="hamburger">
+            <div></div>
+          </div>
+          <div class="menu">
+            <div>
+              <div>
+                <ul>
+                    <li>
+                        <h1 class="listsHeading">
+                            <span id="headSpan">To Do Lists </span>
+                            <form action="/Settings" method="get" id="setId"  style="
+    display: contents;">
+                                <i id="setting" class="fas fa-cog" href="/Settings" type="button" onclick="$('#setId').submit();"><p class="setText">Settings</p></i>
+                            </form>
+                        </h1> 
+                    </li>
+                    <div class="listBox">
+                        <li class="listItem" id="defList">
+                            <a href="/">Today(default) </a>
+                        </li>
+                        <%if (toDoList!=="Today"){%>
+                        <%toDoList.forEach(function (singleList){ %>
+                        <li class="listItem">
+                            <form action="/deleteList" method="post">
+                                <input type="hidden" name="listName" value=<%= listTitle %>></input>
+                                <a href=/<%=singleList.name%>><%=singleList.name%></a>
+                                <div class="deleteDiv">
+                                    <button class="deleteList" name="currentList" value=<%=singleList._id%> type="submit" onclick="this.form.submit();">
+                                        <img id="trash" src="images/delete_icon.svg" />
+                                    </button>  
+                                </div>
+                            </form>
+                        </li>
+                        <%});%>
+                        <%}%>
+                        <div id="addListForm">
+                            <input id="inputList" type="text" name="toDoItem" placeholder="New List" autocomplete="off">
+                            <div id="addList" class="toggle">
+                                <input id="hrefList" href="" type="button" onclick="listAction()">
+                                <span class="button"></span>
+                                <span style="cursor: pointer" onclick="$('#hrefList').click();" class="label" id="listLable"><i class="fas fa-plus"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+
+    <div class="box">
+        <% newItem.forEach(function(singleItem){ %>
+        <form action="/delete" method="post" id="formOne">
+            <div class="item" id="checklist">
+                <input class="checkboxes" id="" type="checkbox" name = "checkbox" value=<%=singleItem._id%> onchange="buttonChanger(); ">
+                <label class="labels" for="01"><%= singleItem.name %></label>
+            </div>
+            <%})%>
+            <div id="remover" class="toggle">
+                <input id="iRemo"name="submitDeletion" value="" type="submit">
+                <span class="button"></span>
+                <span style="cursor: pointer" onclick="$('#iRemo').click();" id="butRem" class="label"><i id="remIcon" class="fas fa-undo"></i></span>
+            </div>
+            <!-- <button id="remover" type="submit" name="submitDeletion" value=""><span id="butRem">↩︎</span></button> -->
+            <input type="hidden" name="listName" value=<%= listTitle %>></input>
+        </form>
+        <form id="adder" class="item" action="/" method="post">
+            <input id="input" type="text" name="toDoItem" placeholder="New Item" autocomplete="off">
+            <div id="add" class="toggle">
+                <input id="iAdd" name="title" value=<%= listTitle %> type="submit">
+                <span class="button"></span>
+                <span style="cursor: pointer" onclick="$('#iAdd').click();"id="but" class="label"><i class="fas fa-plus"></i></span>
+            </div>
+<!--   <button id="add" type="submit" name="title" value=<%= listTitle %>><span id="but">+</span></button>
+ -->    </form>
+</div>
+    <script>
+                let darkMode = <%= darkMode %>;
+        var CssLink = document.getElementsByTagName("link")[0];
+        if(darkMode===true){
+            CssLink.href = "/css/style_dark.css";
+            setTimeout(function() {$("html").css('display', "block");}, 500);
+        } else {
+            CssLink.href = "/css/styles.css";
+            setTimeout(function() {$("html").css('display', "block");}, 500);
+        }
+    </script>
+    <script src="/listJS/list.js"></script>
+</body>
+</html>
